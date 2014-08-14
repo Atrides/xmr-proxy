@@ -151,8 +151,10 @@ class StratumProxyService(GenericService):
         session['tail'] = tail
 
         custom_user = self.custom_user
-        if self.enable_worker_id and params.has_key("login") and re.sub(r'[^\d]', '', params["login"]) and int(params["login"])>0:
-            custom_user = "%s.%s" % (custom_user, int(params["login"]))
+        if self.enable_worker_id and params.has_key("login"):
+            params_login = re.sub(r'[^\d]', '', params["login"])
+            if params_login and int(params_login)>0:
+                custom_user = "%s.%s" % (custom_user, params_login)
 
         first_job = (yield self._f.rpc('login', {"login":custom_user, "pass":self.custom_password}))
 
