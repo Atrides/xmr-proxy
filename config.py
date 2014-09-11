@@ -11,6 +11,7 @@ PAYMENT_ID = ''
 # It's useful for individually monitoring and statistic.
 # In your workers you have to use any number as username (without wallet!)
 ENABLE_WORKER_ID = True
+WORKER_ID_FROM_IP = False
 
 # On DwarfPool you have option to monitor your workers via email.
 # If WORKER_ID is enabled, you can monitor every worker/rig separately.

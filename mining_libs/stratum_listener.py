@@ -88,6 +88,7 @@ class StratumProxyService(GenericService):
     custom_user = None
     custom_password = None
     enable_worker_id = False
+    worker_id_from_ip = False
     tail_iterator = 0
     registered_tails = []
     
@@ -96,10 +97,11 @@ class StratumProxyService(GenericService):
         cls._f = f
 
     @classmethod
-    def _set_custom_user(cls, custom_user, custom_password, enable_worker_id):
+    def _set_custom_user(cls, custom_user, custom_password, enable_worker_id, worker_id_from_ip):
         cls.custom_user = custom_user
         cls.custom_password = custom_password
         cls.enable_worker_id = enable_worker_id
+        cls.worker_id_from_ip = worker_id_from_ip
 
     @classmethod
     def _is_in_tail(cls, tail):
@@ -152,9 +154,15 @@ class StratumProxyService(GenericService):
 
         custom_user = self.custom_user
         if self.enable_worker_id and params.has_key("login"):
-            params_login = re.sub(r'[^\d]', '', params["login"])
-            if params_login and int(params_login)>0:
-                custom_user = "%s.%s" % (custom_user, params_login)
+            if self.worker_id_from_ip:
+                ip_login = self.connection_ref()._get_ip()
+                ip_temp = ip_login.split('.')
+                ip_int = int(ip_temp[0])*16777216 + int(ip_temp[1])*65536 + int(ip_temp[2])*256 + int(ip_temp[3])
+                custom_user = "%s.%s" % (custom_user, ip_int)
+            else:
+                params_login = re.sub(r'[^\d]', '', params["login"])
+                if params_login and int(params_login)>0:
+                    custom_user = "%s.%s" % (custom_user, params_login)
 
         first_job = (yield self._f.rpc('login', {"login":custom_user, "pass":self.custom_password}))
 
