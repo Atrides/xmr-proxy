@@ -19,12 +19,12 @@ MONITORING = True
 MONITORING_EMAIL = 'mail@example.com'
 
 # Main pool
-POOL_HOST = 'erebor.dwarfpool.com'
+POOL_HOST = 'xmr-eu.dwarfpool.com'
 POOL_PORT = 8050
 
 # Failover pool
 POOL_FAILOVER_ENABLE = False
-POOL_HOST_FAILOVER = 'moria.dwarfpool.com'
+POOL_HOST_FAILOVER = 'xmr-usa.dwarfpool.com'
 POOL_PORT_FAILOVER = 8050
 
 # ERROR, INFO, DEBUG
