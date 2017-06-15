@@ -10,7 +10,7 @@ import stratum.logger
 log = stratum.logger.get_logger('proxy')
 
 if __name__ == '__main__':
-    if (settings.PAYMENT_ID and len(settings.PAYMENT_ID)!=64) or len(settings.WALLET)!=95 or len(settings.WALLET)!=106:
+    if (settings.PAYMENT_ID and len(settings.PAYMENT_ID)!=64) or (len(settings.WALLET)!=95 and len(settings.WALLET)!=106):
         log.error("Wrong PAYMENT_ID or WALLET !!!")
         quit()
     settings.CUSTOM_USER = settings.WALLET if not settings.PAYMENT_ID else "%s.%s" % (settings.WALLET, settings.PAYMENT_ID)
