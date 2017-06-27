@@ -2,6 +2,16 @@
 
 This is Stratum Proxy for Monero-pools (RPCv2) using asynchronous networking written in Python Twisted.
 
+# # #
+
+If you lost connections to your proxy and have a lot of users, check limits of your system in /etc/security/limits.conf
+The best way to increase limits of open files:
+
+ proxyuser hard nofile 1048576
+ proxyuser soft nofile 1048576
+
+# # #
+
 **NOTE:** This fork is still in development. Some features may be broken. Please report any broken features or issues.
 
 #Features
