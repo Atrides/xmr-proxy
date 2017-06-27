@@ -5,9 +5,11 @@ This is Stratum Proxy for Monero-pools (RPCv2) using asynchronous networking wri
 # # #
 
 If you lost connections to your proxy and have a lot of users, check limits of your system in /etc/security/limits.conf
+
 The best way to increase limits of open files:
 
  proxyuser hard nofile 1048576
+ 
  proxyuser soft nofile 1048576
 
 # # #
