@@ -8,14 +8,16 @@ class Job(object):
         self.job_id = ''
         self.blob = ''
         self.target = ''
+        self.height = ''
 
     @classmethod
-    def build_from_pool(cls, job_id, blob, target):
+    def build_from_pool(cls, job_id, blob, target, height):
         '''Build job object from Stratum server broadcast'''
         job = Job()
         job.job_id = job_id
         job.blob = blob
         job.target = target
+        job.height = height
         return job
 
 class JobRegistry(object):   

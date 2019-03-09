@@ -58,7 +58,7 @@ def on_connect(f):
     f.on_connect.addCallback(on_connect)
     
     # Get first job and user_id
-    initial_job = (yield f.rpc('login', {"login":settings.CUSTOM_USER, "pass":settings.CUSTOM_PASSWORD, "agent":"proxy"}))
+    initial_job = (yield f.rpc('login', {"login":settings.CUSTOM_USER, "pass":settings.CUSTOM_PASSWORD, "agent":"proxy2"}))
 
     reactor.callLater(300, ping, f, initial_job['id'])
 

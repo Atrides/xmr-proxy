@@ -42,14 +42,14 @@ class ClientMiningService(GenericEventHandler):
         if method == 'job':
             '''Proxy just received information about new mining job'''
             
-            (blob, job_id, target, user_id) = params["blob"],params["job_id"],params["target"],params["id"]
+            (blob, job_id, target, user_id, height) = params["blob"],params["job_id"],params["target"],params["id"],params["height"]
         
             # Broadcast to Stratum client
-            stratum_listener.MiningSubscription.on_template(job_id, blob, target, user_id)
+            stratum_listener.MiningSubscription.on_template(job_id, blob, target, user_id, height)
             
             # Broadcast to getwork clients
-            job = Job.build_from_pool(job_id, blob, target)
-            log.info("New job %s for %s" % (job_id, user_id))
+            job = Job.build_from_pool(job_id, blob, target, height)
+            log.info("New job %s for %s on height %s" % (job_id, user_id, height))
 
             self.job_registry.add_job(job, True)
             
