@@ -224,3 +224,13 @@ class StratumProxyService(GenericService):
         response_time = (time.time() - start) * 1000
         log.info("[%dms] send GetJob to '%s'" % (response_time, ip))
         defer.returnValue(result)
+
+    @defer.inlineCallbacks
+    def keepalived(self, params, *args):
+        if self._f.client == None or not self._f.client.connected:
+            raise SubmitException("Upstream not connected")
+
+        session = self.connection_ref().get_session()
+        tail = session.get('tail')
+        if tail == None:
+            raise SubmitException("Connection is not subscribed")
