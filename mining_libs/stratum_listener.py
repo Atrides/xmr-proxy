@@ -52,14 +52,14 @@ class MiningSubscription(Subscription):
         cls.subscribers[user_id] = subsc
         
     @classmethod
-    def on_template(cls, job_id, blob, target, user_id, height):
+    def on_template(cls, job_id, blob, target, user_id, height, seed_hash):
         '''Push new job to subscribed clients'''
         #cls.last_broadcast = (job_id, blob, target)
         #if user_id:
         #    cls.user_id = user_id
         if cls.subscribers.has_key(user_id):
             subscr = cls.subscribers[user_id]
-            subscr.emit_single({'job_id':job_id, 'blob':blob, 'target':target, 'height':height})
+            subscr.emit_single({'job_id':job_id, 'blob':blob, 'target':target, 'height':height, 'seed_hash':seed_hash})
         
     def _finish_after_subscribe(self, result):
         '''Send new job to newly subscribed client'''
